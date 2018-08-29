@@ -62,10 +62,7 @@ namespace CRUD_Operationsdemo
                         price = Convert.ToDecimal(dataReader["Price"])
                     });
                 }
-                foreach (Product item in productNames)
-                {
-                    Console.WriteLine(item.name);
-                }
+
                 return productNames;
             }
 
