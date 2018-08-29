@@ -48,7 +48,7 @@ namespace CRUD_Operationsdemo
             {
                 conn.Open();
                 MySqlCommand cmd = conn.CreateCommand();
-                cmd.CommandText = "SELECT * FROM Products WHERE categoryid = @categoryID;";
+                cmd.CommandText = "SELECT ProductId, Name, Price FROM Products WHERE categoryid = @categoryID;";
                 cmd.Parameters.AddWithValue("categoryID", categoryID);
                 
                 MySqlDataReader dataReader = cmd.ExecuteReader();
@@ -56,10 +56,11 @@ namespace CRUD_Operationsdemo
 
                 while (dataReader.Read())
                 {
-                    string Name = dataReader["Name"].ToString();
-                    Product prod = new Product();
-                    prod.name = Name;
-                    productNames.Add(prod);
+                    productNames.Add(new Product() {
+                        productid = Convert.ToInt32(dataReader["ProductId"]),
+                        name = dataReader["Name"].ToString(),
+                        price = Convert.ToDecimal(dataReader["Price"])
+                    });
                 }
                 foreach (Product item in productNames)
                 {
